@@ -1,0 +1,22 @@
+<h4>Lista studentów</h4>
+
+<button class ="btn btn-secondary"(click)="showTable()"> {{buttonText}}</button>
+
+<button class ="btn btn-success"(click)="getData()"> Pobierz dane</button>
+
+<table *ngIf="isTableVisible" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Imię i nazwisko</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor ="let student of students">
+      <td>{{student.id}}</td>
+      <td>{{student.name}}</td>
+      <td>{{student.email}}</td>
+    </tr>
+  </tbody>
+</table>
