@@ -1,22 +1,51 @@
-<h4>Lista studentów</h4>
+<h4>{{'Lista studentów' | uppercase}}</h4>
 
-<button class ="btn btn-secondary"(click)="showTable()"> {{buttonText}}</button>
+<button class ="btn btn-secondary"(click)="showTable()"> {{buttonText | uppercase}}</button>
 
-<button class ="btn btn-success"(click)="getData()"> Pobierz dane</button>
+<button class ="btn btn-success button-margin"(click)="getData()"> Pobierz dane</button>
 
-<table *ngIf="isTableVisible" class="table table-hover">
+<button class="btn btn-danger button-margin" (click)="deleteGlobalStudents()">
+  Usuń globalnie
+</button>
+
+<button class="btn btn-warning button-margin" (click)="changeDisplayingForm()">
+  Zmień wyświetlanie
+</button>
+
+<table *ngIf="isTableVisible && displayingTable == TypeDisplaying.TABLE" class="table table-hover">
   <thead>
     <tr>
+      <th>Zaznaczony</th>
       <th>Id</th>
       <th>Imię i nazwisko</th>
       <th>Email</th>
+      <th>Akcje</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor ="let student of students">
+    <tr *ngFor ="let student of students" 
+      [ngClass]="{'table-primary' : student.id ==3, 
+      'table-warning' : isNameGlennaReichert(student.name),
+      'table-danger' : student.id >=4 && student.id <=6}">
+      <td><input type = "checkbox" (change)="changeStatus($event.target, student.id)"></td>
       <td>{{student.id}}</td>
-      <td>{{student.name}}</td>
-      <td>{{student.email}}</td>
+      <td>{{student.name | uppercase}}</td>
+      <td> 
+        <p *ngIf="student.id < 4 || student.id  > 6">
+          {{student.email | lowercase}}
+        </p>
+      </td>
+      <td>
+        <button class="btn btn-outline-danger" (click)="delete(student.id)">Usuń</button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<div *ngIf = "displayingTable == TypeDisplaying.LIST">
+<div *ngFor = "let student of students">
+  <h4>{{student.name}}</h4>
+  <p style=" color:  blue"> {{student.email}}</p>
+  <button class="btn btn-outline-danger">Usuń</button>
+</div>
+</div>

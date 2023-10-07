@@ -7,12 +7,29 @@ import { Student } from './student';
 })
 export class HttpService {
 
+  studentApiUrl = "https://jsonplaceholder.typicode.com/users";
+
   constructor(private httpClient : HttpClient) { }
 
+  // Funkcja wysylajaca request - GET pobierajaca tablice studentow z API
   getStudents(){
     // w nawiasie adres do pliku z ktorego mamy pobrac dane aby mozna bylo dokonac mapowania na Student
      
-    return this.httpClient.get<Student[]>("https://jsonplaceholder.typicode.com/users");
+    return this.httpClient.get<Student[]>(this.studentApiUrl);
     // zwracana kolekcja to nie bedzie tylko typu Student ale jeszcze w pewien typ opakowany
   }
+
+  // Funkcja wysylajaca request- DELETE usuwajaca studenta o podanym API
+  //// https://jsonplaceholder.typicode.com/users/5 -> DELETE -> USUN rekord o ID = 5
+ //// https://jsonplaceholder.typicode.com/users/10 -> DELETE -> USUN rekord o ID = 5
+  deleteStudent(id: number){
+    let deleteStudentUrl = this.studentApiUrl + "/" + id;
+    return this.httpClient.delete<Student>(deleteStudentUrl);
+  }
+
+  //Funkcja wysyłająca request -POST do endpointu
+  addStudent(student :Student){
+    return this.httpClient.post<Student>(this.studentApiUrl,student);
+  }
+
 }

@@ -1,0 +1,25 @@
+<h4>{{'Dodaj nowego studenta'| uppercase}}</h4>
+
+
+<form (submit)="save(name.value, email.value)">
+  <!-- Pole imie i nazwisko -->
+  <div class="col-6">
+    <label class="form-label">Imię i nazwisko studenta</label>
+    <input type="name" class = "form-control" #name/>
+  </div>
+  <!-- Pole email -->
+  <div class="col-6">
+    <label class="form-label">Email</label>
+    <input type="email" class = "form-control" #email/>
+  </div>
+  <!-- Przycisk do zapsu -->
+  <div style="margin-top: 15px;">
+    <button class="btn btn-outline-success">Zapisz</button>
+  </div>
+
+  <div *ngIf="!isFormValid">
+    <p  *ngFor="let error of errorText" style="color:red;font-size:16px;margin-top:10px">
+        {{error}}</p>
+    </div>
+  
+  </form>
