@@ -26,6 +26,7 @@ export class ListStudentsComponent {
     studentIdToRemove : number[] = [];
     displayingTable : TypeDisplaying = TypeDisplaying.TABLE;
     TypeDisplaying = TypeDisplaying;
+    copyStudents = this.students;
     
 
     constructor(private httpService: HttpService){
@@ -99,5 +100,12 @@ export class ListStudentsComponent {
         } else {
           this.displayingTable = TypeDisplaying.TABLE;
         }
+      }
+
+      search(searchString : string){
+        this.students = this.students.filter(x=>x.name.toLowerCase()
+          .includes(searchString.toLowerCase())
+          || x.email.toLowerCase()
+          .includes(searchString.toLocaleLowerCase()));
       }
   }

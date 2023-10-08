@@ -12,6 +12,12 @@
   Zmień wyświetlanie
 </button>
 
+  <div class="col-4">
+  <label class="form-label">Wyszukaj</label>
+  <input #searchInput (keyup)="search(searchInput.value)" class="form-control">
+  </div>
+
+
 <table *ngIf="isTableVisible && displayingTable == TypeDisplaying.TABLE" class="table table-hover">
   <thead>
     <tr>
@@ -36,7 +42,9 @@
         </p>
       </td>
       <td>
-        <button class="btn btn-outline-danger" (click)="delete(student.id)">Usuń</button>
+        <a [routerLink] ="'/edit/'+student.id" class="btn btn-outline-warning">Edycja</a>
+        <button style= "margin-left: 5px" class="btn btn-outline-danger" (click)="delete(student.id)">Usuń</button>
+        
       </td>
     </tr>
   </tbody>

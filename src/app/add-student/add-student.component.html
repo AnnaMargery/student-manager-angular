@@ -5,21 +5,30 @@
   <!-- Pole imie i nazwisko -->
   <div class="col-6">
     <label class="form-label">Imię i nazwisko studenta</label>
-    <input type="name" class = "form-control" #name/>
+    <input type="name" class="form-control" #name />
   </div>
   <!-- Pole email -->
   <div class="col-6">
     <label class="form-label">Email</label>
-    <input type="email" class = "form-control" #email/>
+    <input type="email" class="form-control" #email />
   </div>
   <!-- Przycisk do zapsu -->
   <div style="margin-top: 15px;">
-    <button class="btn btn-outline-success">Zapisz</button>
+    <button [disabled]="isFormSubmitting" class="btn btn-outline-success">
+      <span *ngIf="isFormSubmitting" class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+      Zapisz</button>
   </div>
 
   <div *ngIf="!isFormValid">
-    <p  *ngFor="let error of errorText" style="color:red;font-size:16px;margin-top:10px">
-        {{error}}</p>
-    </div>
-  
-  </form>
+    <p *ngFor="let error of errorText" style="color:red;font-size:16px;margin-top:10px">
+      {{error}}</p>
+  </div>
+</form>
+
+  <div *ngIf="isAddedSuccessfull" class="alert alert-success" style="margin-top: 20px;" role="alert">
+    Dodano studenta!
+  </div>
+
+  <div *ngIf="isAddedError" class="alert alert-danger" style="margin-top: 20px;" role="alert">
+    Wystąpił błąd w komunikacji z serwerem!
+  </div>
